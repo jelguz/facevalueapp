@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_vertical"
+    android:paddingLeft="50dp"
+    android:paddingRight="50dp"
+    tools:context=".EnterPinActivity">
+
+    <TextView
+        android:id="@+id/tvEnterPinName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:text="Welcome " />
+
+    <TextView
+        android:id="@+id/tvEnterPin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tvEnterPinName"
+        android:gravity="center_horizontal"
+        android:text="Enter your pin" />
+
+    <EditText
+        android:id="@+id/etPin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tvEnterPin"
+        android:inputType="numberPassword" />
+
+    <Button
+        android:id="@+id/btnEnterPin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/etPin"
+        android:text="OK" />
+
+</RelativeLayout>

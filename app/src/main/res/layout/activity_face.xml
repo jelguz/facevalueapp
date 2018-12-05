@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<FrameLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  android:id="@+id/topLayout"
+  android:orientation="vertical"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent"
+  android:keepScreenOn="true">
+
+    <com.finastra.facevalue.ui.camera.CameraSourcePreview
+      android:id="@+id/preview"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent">
+
+        <com.finastra.facevalue.ui.camera.GraphicOverlay
+          android:id="@+id/faceOverlay"
+          android:layout_width="match_parent"
+          android:layout_height="match_parent" />
+
+    </com.finastra.facevalue.ui.camera.CameraSourcePreview>
+
+    <FrameLayout
+        android:id="@+id/FlashBarLayout1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal|bottom"
+        android:layout_marginBottom="100dp">
+        <!-- flash bar content -->
+
+        <Button
+            android:id="@+id/accountHistoryButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Account History"
+            android:visibility = "gone"
+            />
+        <!--android:drawableLeft="@drawable/button_icon"-->
+
+    </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/FlashBarLayout2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal|bottom"
+        android:layout_marginBottom="50dp">
+        <!-- flash bar content -->
+
+        <Button
+            android:id="@+id/moneyTransferButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Money Transfer"
+            android:visibility = "gone"
+            />
+        <!--android:drawableLeft="@drawable/button_icon"-->
+
+    </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/FlashBarLayout3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right|top" >
+        <!-- flash bar content -->
+
+        <Button
+            android:id="@+id/homeButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Home"
+            android:visibility = "gone"
+            />
+        <!--android:drawableLeft="@drawable/button_icon"-->
+
+    </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/progressBarHolder"
+        android:animateLayoutChanges="true"
+        android:visibility="gone"
+        android:alpha="0.4"
+        android:background="#000000"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ProgressBar
+            style="?android:attr/progressBarStyleLarge"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:indeterminate="true"
+            android:layout_gravity="center" />
+    </FrameLayout>
+
+</FrameLayout>

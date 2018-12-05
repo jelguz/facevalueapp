@@ -1,0 +1,58 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MoneyTransferFragment">
+
+    <LinearLayout android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="20dp" >
+
+        <TextView
+            android:id="@+id/tvTransferFrom"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Transfer from" />
+
+        <Spinner
+            android:id="@+id/spinnerTransferFrom"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/tvAmount"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Transfer from" />
+
+        <EditText
+            android:id="@+id/etAmount"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="number" />
+
+        <TextView
+            android:id="@+id/tvTransferTo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Transfer to" />
+
+        <EditText
+            android:id="@+id/etTransferTo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="number" />
+
+        <Button
+            android:id="@+id/button2"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="Camera" />
+
+
+    </LinearLayout>
+</FrameLayout>
