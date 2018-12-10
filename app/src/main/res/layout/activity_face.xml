@@ -2,7 +2,8 @@
 
 <FrameLayout
   xmlns:android="http://schemas.android.com/apk/res/android"
-  android:id="@+id/topLayout"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/topLayout"
   android:orientation="vertical"
   android:layout_width="match_parent"
   android:layout_height="match_parent"
@@ -29,9 +30,13 @@
         <!-- flash bar content -->
 
         <Button
+            style="@style/Widget.AppCompat.Button.Colored"
+            android:theme="@style/TranslucentPinkButton"
             android:id="@+id/accountHistoryButton"
-            android:layout_width="wrap_content"
+            android:layout_width="150dp"
             android:layout_height="wrap_content"
+            android:layout_margin="12dp"
+            android:padding="8dp"
             android:text="Account History"
             android:visibility = "gone"
             />
@@ -48,9 +53,13 @@
         <!-- flash bar content -->
 
         <Button
+            style="@style/Widget.AppCompat.Button.Colored"
+            android:theme="@style/TranslucentPinkButton"
             android:id="@+id/moneyTransferButton"
-            android:layout_width="wrap_content"
+            android:layout_width="150dp"
             android:layout_height="wrap_content"
+            android:layout_margin="12dp"
+            android:padding="8dp"
             android:text="Money Transfer"
             android:visibility = "gone"
             />
@@ -65,13 +74,14 @@
         android:layout_gravity="right|top" >
         <!-- flash bar content -->
 
-        <Button
+        <ImageButton
             android:id="@+id/homeButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Home"
-            android:visibility = "gone"
-            />
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_margin="15dp"
+            app:srcCompat="@drawable/home_pink_button"
+            android:background="@android:color/transparent"
+            android:visibility="gone" />
         <!--android:drawableLeft="@drawable/button_icon"-->
 
     </FrameLayout>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Face Value</string>
+    <string name="app_name">FaceValue</string>
     <string name="ok">OK</string>
     <string name="disappointed_ok">Well, okay then.</string>
     <string name="permission_camera_rationale">This app needs access to the camera in order to detect people’s faces.</string>

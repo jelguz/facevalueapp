@@ -1,5 +1,7 @@
 package com.finastra.facevalue;
 
+import android.content.Intent;
+import android.media.FaceDetector;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -32,7 +34,11 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        String loadFragment = getIntent().getStringExtra("loadFragment");
+        String loadFragment = "";
+        if(getIntent().hasExtra("loadFragment")) {
+            loadFragment = getIntent().getStringExtra("loadFragment");
+        }
+
         android.support.v4.app.FragmentManager fragmentManager = getSupportFragmentManager();
 
         if(loadFragment.equalsIgnoreCase("AccountHistory")) {
@@ -88,12 +94,21 @@ public class MainActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
+        if (id == R.id.nav_account_settings) {
             // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
+        }
+//        else if (id == R.id.nav_scan_qr) { }
+        else if (id == R.id.nav_receive_from) {
+            Intent intent = new Intent(MainActivity.this, EnterAmountActivity.class);
+            intent.putExtra("FaceGraphic", 3);
+            startActivity(intent);
+        } else if (id == R.id.nav_about) {
 
-        } else if (id == R.id.nav_slideshow) {
-
+        } else if (id == R.id.nav_logout) {
+            Intent intent = new Intent(MainActivity.this, LogoutScreenActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
+            finish();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

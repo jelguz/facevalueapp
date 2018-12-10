@@ -39,6 +39,7 @@ import android.view.View;
 import android.view.animation.AlphaAnimation;
 import android.widget.Button;
 import android.widget.FrameLayout;
+import android.widget.ImageButton;
 import android.widget.ProgressBar;
 
 import com.google.android.gms.vision.Tracker;
@@ -61,13 +62,13 @@ class FaceTracker extends Tracker<Face> {
   private FirstScreenGraphic mFirstScreenGraphic;
   private Button mAccountHistory;
   private Button mMmoneyTransfer;
-  private Button mHomeButton;
+  private ImageButton mHomeButton;
   private FrameLayout mProgressBarHolder;
 
   private AlphaAnimation inAnimation;
   private AlphaAnimation outAnimation;
 
-  private boolean mIsNotFirstScreen;
+  private int mFaceGraphicScreenNum;
 
   private int counter;
 
@@ -77,14 +78,14 @@ class FaceTracker extends Tracker<Face> {
   // their locations when they momentarily "disappear".
   private Map<Integer, PointF> mPreviousLandmarkPositions = new HashMap<>();
 
-  FaceTracker(GraphicOverlay overlay, Context context, Button accountHistory, Button moneyTransfer, Button homeButton, FrameLayout progressBarHolder, boolean isNotFirstScreen) {
+  FaceTracker(GraphicOverlay overlay, Context context, Button accountHistory, Button moneyTransfer, ImageButton homeButton, FrameLayout progressBarHolder, int faceGraphicScreenNum) {
     mOverlay = overlay;
     mContext = context;
     mAccountHistory = accountHistory;
     mMmoneyTransfer = moneyTransfer;
     mHomeButton = homeButton;
     mProgressBarHolder = progressBarHolder;
-      mIsNotFirstScreen = isNotFirstScreen;
+    mFaceGraphicScreenNum = faceGraphicScreenNum;
   }
 
   // Facial landmark utility methods
@@ -131,19 +132,30 @@ class FaceTracker extends Tracker<Face> {
   // 2
   @Override
   public void onUpdate(FaceDetector.Detections<Face> detectionResults, Face face) {
-
-    if(!mIsNotFirstScreen) {
+    System.out.println(mFaceGraphicScreenNum);
+    if(mFaceGraphicScreenNum == FaceActivity.FIRST_SCREEN_FACE_GRAPHIC_SCREEN) {
         mOverlay.add(mFirstScreenGraphic);
         mFirstScreenGraphic.update(face);
         setButtonsGone();
-    } else {
+    } else if(mFaceGraphicScreenNum == FaceActivity.FACE_GRAPHIC_SCREEN){
         mOverlay.add(mFaceGraphic);
         mFaceGraphic.update(face);
         setButtonsVisible();
+    } else if(mFaceGraphicScreenNum == FaceActivity.TRANSFER_TO_GRAPHIC_SCREEN){
+        mOverlay.add(mFirstScreenGraphic);
+        mFirstScreenGraphic.update(face);
+        setButtonsGone();
+    } else if(mFaceGraphicScreenNum == FaceActivity.TRANSFER_FROM_GRAPHIC_SCREEN){
+      mOverlay.add(mFirstScreenGraphic);
+      mFirstScreenGraphic.update(face);
+      setButtonsGone();
     }
 
     //first screen authentication
-    if(!mIsNotFirstScreen && counter ==0) {
+    if( (mFaceGraphicScreenNum == FaceActivity.FIRST_SCREEN_FACE_GRAPHIC_SCREEN
+            ||  mFaceGraphicScreenNum == FaceActivity.TRANSFER_TO_GRAPHIC_SCREEN
+            || mFaceGraphicScreenNum == FaceActivity.TRANSFER_FROM_GRAPHIC_SCREEN)
+            && counter ==0) {
 
       System.out.println("Delay... ");
 
@@ -243,12 +255,37 @@ class FaceTracker extends Tracker<Face> {
       } catch (InterruptedException e) {
         e.printStackTrace();
       }
+      if(mFaceGraphicScreenNum == FaceActivity.FIRST_SCREEN_FACE_GRAPHIC_SCREEN) {
 
-      Intent intent = new Intent();
-      intent.setClass(mProgressBarHolder.getContext(), EnterPinActivity.class);
-//    intent.putExtra("key", value); //Optional parameters
-      mProgressBarHolder.getContext().startActivity(intent);
+        Intent intent = new Intent();
+        intent.setClass(mProgressBarHolder.getContext(), EnterPinActivity.class);
+        intent.putExtra("Username", FaceActivity.USERNAME);
+        intent.putExtra("FaceGraphic", FaceActivity.FIRST_SCREEN_FACE_GRAPHIC_SCREEN);
+        mProgressBarHolder.getContext().startActivity(intent);
 
+      } else if (mFaceGraphicScreenNum == FaceActivity.TRANSFER_TO_GRAPHIC_SCREEN) {
+
+        Intent intent = new Intent();
+        intent.setClass(mProgressBarHolder.getContext(), ConfirmationActivity.class);
+        intent.putExtra("Username", FaceActivity.USERNAME);
+        intent.putExtra("UsernameTransferTo", FaceActivity.USERNAME_TRANSFER_TO);
+        intent.putExtra("FaceGraphic", FaceActivity.TRANSFER_TO_GRAPHIC_SCREEN);
+        intent.putExtra("TransferToFrom", "transfered to");
+        mProgressBarHolder.getContext().startActivity(intent);
+
+      } else if (mFaceGraphicScreenNum == FaceActivity.TRANSFER_FROM_GRAPHIC_SCREEN) {
+        System.out.println("YYYY");
+        System.out.println(mFaceGraphicScreenNum);
+        Intent intent = new Intent();
+        intent.setClass(mProgressBarHolder.getContext(), EnterPinActivity.class);
+        intent.putExtra("Username", FaceActivity.USERNAME_TRANSFER_FROM);
+        intent.putExtra("UsernameTransferTo", FaceActivity.USERNAME_TRANSFER_FROM);
+//        intent.putExtra("UsernameTransferFrom", FaceActivity.USERNAME_TRANSFER_FROM);
+        intent.putExtra("FaceGraphic", FaceActivity.TRANSFER_FROM_GRAPHIC_SCREEN);
+        intent.putExtra("TransferToFrom", "transfered from");
+        mProgressBarHolder.getContext().startActivity(intent);
+
+      }
 
       return null;
     }

@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:paddingLeft="40dp"
+    android:paddingRight="40dp" >
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:layout_marginBottom="12dp"
+        android:textSize="18dp"
+        android:text="You are about to transfer" />
+
+    <TextView
+        android:id="@+id/tvConfirmationAmount"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:textSize="24dp"
+        android:layout_marginBottom="12dp"
+        android:text="PHP 100.00"  />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:layout_marginBottom="12dp"
+        android:textSize="18dp"
+        android:text="to" />
+
+    <TextView
+        android:id="@+id/tvConfirmUsernameTransferTo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:textSize="24dp"
+        android:text="UsernameTo" />
+
+    <TextView
+        android:id="@+id/tvTransferToAccountNumber"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20dp"
+        android:layout_marginBottom="22dp"
+        android:text="087654321" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:layout_marginBottom="20dp"
+        android:textSize="18dp"
+        android:text="Would you like to proceed?" />
+
+    <Button
+        style="@style/Widget.AppCompat.Button.Colored"
+        android:theme="@style/PinkButton"
+        android:id="@+id/btnConfirm"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Confirm" />
+
+</LinearLayout>

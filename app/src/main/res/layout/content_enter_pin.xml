@@ -3,17 +3,30 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center_vertical"
+    android:paddingTop="110dp"
     android:paddingLeft="50dp"
     android:paddingRight="50dp"
-    tools:context=".EnterPinActivity">
+
+    tools:context=".EnterPinActivity" >
+
+    <TextView
+        android:id="@+id/tvEnterPinHello"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:textSize="50dp"
+        android:paddingBottom="6dp"
+        android:text="Hello" />
 
     <TextView
         android:id="@+id/tvEnterPinName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@id/tvEnterPinHello"
         android:gravity="center_horizontal"
-        android:text="Welcome " />
+        android:textSize="20dp"
+        android:paddingBottom="25dp"
+        android:text="Jelene Guzman" />
 
     <TextView
         android:id="@+id/tvEnterPin"
@@ -21,16 +34,22 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/tvEnterPinName"
         android:gravity="center_horizontal"
-        android:text="Enter your pin" />
+        android:textSize="15dp"
+        android:paddingBottom="2dp"
+        android:text="Enter your PIN" />
 
     <EditText
         android:id="@+id/etPin"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/tvEnterPin"
+        android:gravity="center"
+        android:maxLength="6"
         android:inputType="numberPassword" />
 
     <Button
+        style="@style/Widget.AppCompat.Button.Colored"
+        android:theme="@style/PinkButton"
         android:id="@+id/btnEnterPin"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

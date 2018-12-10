@@ -44,6 +44,7 @@ import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -74,14 +75,24 @@ public final class FaceActivity extends AppCompatActivity {
   // permission request codes need to be < 256
   private static final int RC_HANDLE_CAMERA_PERM = 255;
 
+  public static final int FIRST_SCREEN_FACE_GRAPHIC_SCREEN = 0;
+  public static final int FACE_GRAPHIC_SCREEN = 1;
+  public static final int TRANSFER_TO_GRAPHIC_SCREEN = 2;
+  public static final int TRANSFER_FROM_GRAPHIC_SCREEN = 3;
+
+  public static final String USERNAME = "Jelene Guzman";
+  public static final String USERNAME_TRANSFER_TO = "Albert Rivera";
+  public static final String USERNAME_TRANSFER_FROM = "Albert Rivera";
+
+
   private CameraSource mCameraSource = null;
   private CameraSourcePreview mPreview;
   private GraphicOverlay mGraphicOverlay;
   private Button mAccountHistory;
   private Button mMmoneyTransfer;
-  private Button mHomeButton;
+  private ImageButton mHomeButton;
   private FrameLayout mProgressBarHolder;
-  private boolean mIsNotFirstScreen;
+  private int mFaceGraphicScreenNum;
 
 
   // Activity event handlers
@@ -94,13 +105,18 @@ public final class FaceActivity extends AppCompatActivity {
 
     setContentView(R.layout.activity_face);
 
+    ActionBar actionBar = getSupportActionBar();
+    actionBar.hide();
+
     mPreview = (CameraSourcePreview) findViewById(R.id.preview);
     mGraphicOverlay = (GraphicOverlay) findViewById(R.id.faceOverlay);
     final ImageButton imageButton = (ImageButton) findViewById(R.id.flipButton);
     mAccountHistory = (Button) findViewById(R.id.accountHistoryButton);
     mMmoneyTransfer = (Button) findViewById(R.id.moneyTransferButton);
-    mHomeButton = (Button) findViewById(R.id.homeButton);
+    mHomeButton = (ImageButton) findViewById(R.id.homeButton);
     mProgressBarHolder = (FrameLayout) findViewById(R.id.progressBarHolder);
+
+    mFaceGraphicScreenNum = getIntent().getIntExtra("FaceGraphic", 0);
 
     mAccountHistory.setOnClickListener(mAccountHistoryButtonListener);
     mMmoneyTransfer.setOnClickListener(mMoneyTransferButtonListener);
@@ -115,9 +131,6 @@ public final class FaceActivity extends AppCompatActivity {
       requestCameraPermission();
     }
 
-    Intent intent = getIntent();
-    mIsNotFirstScreen = intent.hasExtra("isNotFirstScreen");
-
   }
 
   private View.OnClickListener mAccountHistoryButtonListener = new View.OnClickListener() {
@@ -125,7 +138,6 @@ public final class FaceActivity extends AppCompatActivity {
       Intent intent = new Intent(FaceActivity.this, MainActivity.class);
       intent.putExtra("loadFragment", "AccountHistory");
       startActivity(intent);
-
     }
   };
 
@@ -134,7 +146,6 @@ public final class FaceActivity extends AppCompatActivity {
       Intent intent = new Intent(FaceActivity.this, MainActivity.class);
       intent.putExtra("loadFragment", "MoneyTransfer");
       startActivity(intent);
-
     }
   };
 
@@ -143,7 +154,6 @@ public final class FaceActivity extends AppCompatActivity {
       Intent intent = new Intent(FaceActivity.this, MainActivity.class);
       intent.putExtra("loadFragment", "Home");
       startActivity(intent);
-
     }
   };
 
@@ -246,6 +256,9 @@ public final class FaceActivity extends AppCompatActivity {
 
     // 2
     int facing = CameraSource.CAMERA_FACING_FRONT;
+    if (mFaceGraphicScreenNum==2) {
+      facing = CameraSource.CAMERA_FACING_BACK;
+    }
 
     // 3
     mCameraSource = new CameraSource.Builder(context, detector)
@@ -299,7 +312,7 @@ public final class FaceActivity extends AppCompatActivity {
     MultiProcessor.Factory<Face> factory = new MultiProcessor.Factory<Face>() {
       @Override
       public Tracker<Face> create(Face face) {
-        return new FaceTracker(mGraphicOverlay, context, mAccountHistory, mMmoneyTransfer, mHomeButton, mProgressBarHolder, mIsNotFirstScreen);
+        return new FaceTracker(mGraphicOverlay, context, mAccountHistory, mMmoneyTransfer, mHomeButton, mProgressBarHolder, mFaceGraphicScreenNum);
       }
     };
 
